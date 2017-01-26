@@ -27,6 +27,7 @@ set.seed(42)
 mycol <- substr(sample(rainbow(length(unique(africa$family)))), 1, 7)
 map.feature(languages = africa$languoid,
             features = africa$family,
+            popup = africa$family,
             color = mycol,
             legend = F)
 ```
@@ -71,6 +72,7 @@ set.seed(42)
 mycol <- substr(sample(rainbow(length(unique(australia$family)))), 1, 7)
 map.feature(languages = australia$languoid,
             features = australia$family,
+            popup = australia$family,
             color = mycol,
             legend = T)
 ```
@@ -102,17 +104,20 @@ eurasia <- glottolog.modified[glottolog.modified$macro_area == "Eurasia",]
 eurasia$family <- sapply(eurasia$affiliation, function(x){
   unlist(strsplit(x, ", "))[1]})
 eurasia <- eurasia[eurasia$family != "Spurious",]
+eurasia <- eurasia[eurasia$family != "'''Spurious",]
 eurasia <- eurasia[eurasia$family != "Unattested",]
 eurasia <- eurasia[!is.na(eurasia$languoid),]
 eurasia[is.na(eurasia$family),8] <- "Unclassifiable"
 isolates <- table(eurasia$family)
 isolates <- names(isolates[table(eurasia$family) < 2])
 eurasia[eurasia$family %in% isolates,]$family <- "Isolate"
+eurasia[eurasia$family == "'''Austroasiatic",]$family <- "Austroasiatic"
 
 set.seed(42)
 mycol <- substr(sample(rainbow(length(unique(eurasia$family)))), 1, 7)
 map.feature(languages = eurasia$languoid,
             features = eurasia$family,
+            popup = eurasia$family,
             color = mycol,
             legend = F)
 ```
@@ -125,10 +130,10 @@ Column {data-width=400}
 ```{r, echo = F}
 legend <- data.frame(family = unique(eurasia$family))
 library(DT)
-datatable(legend, rownames = FALSE) #%>% 
-#  formatStyle(
-#    'family',
-#    backgroundColor = styleEqual(unique(eurasia$family), mycol))
+datatable(legend, rownames = FALSE) %>% 
+  formatStyle(
+    'family',
+    backgroundColor = styleEqual(unique(eurasia$family), mycol))
 ```
 
 North America
@@ -155,6 +160,7 @@ set.seed(42)
 mycol <- substr(sample(rainbow(length(unique(n.america$family)))), 1, 7)
 map.feature(languages = n.america$languoid,
             features = n.america$family,
+            popup = n.america$family,
             color = mycol,
             legend = F)
 ```
@@ -194,11 +200,18 @@ isolates <- table(papua$family)
 isolates <- names(isolates[table(papua$family) < 2])
 papua[papua$family %in% isolates,]$family <- "Isolate"
 papua[papua$family == "'''Austronesian",]$family <- "Austronesian"
+papua[papua$family == "'''East_Bird''''s_Head",]$family <- "East_Bird_s_Head"
+papua[papua$family == "'''South_Bird''''s_Head_Family",]$family <- "South_Bird_s_Head"
+papua[papua$family == "'''South_Bird''''s_Head_Family'''",]$family <- "South_Bird_s_Head"
+papua[papua$family == "'''West_Bird''''s_Head",]$family <- "West_Bird_s_Head"
+
+
 
 set.seed(42)
 mycol <- substr(sample(rainbow(length(unique(papua$family)))), 1, 7)
 map.feature(languages = papua$languoid,
             features = papua$family,
+            popup = papua$family,
             color = mycol,
             legend = F)
 ```
@@ -211,11 +224,10 @@ Column {data-width=400}
 ```{r, echo = F}
 legend <- data.frame(family = unique(papua$family))
 library(DT)
-datatable(legend, rownames = FALSE)
-# %>% 
-#  formatStyle(
-#    'family',
-#    backgroundColor = styleEqual(unique(papua$family), mycol))
+datatable(legend, rownames = FALSE)  %>% 
+  formatStyle(
+   'family',
+   backgroundColor = styleEqual(unique(papua$family), mycol))
 ```
 
 
@@ -244,6 +256,7 @@ set.seed(42)
 mycol <- substr(sample(rainbow(length(unique(s.america$family)))), 1, 7)
 map.feature(languages = s.america$languoid,
             features = s.america$family,
+            popup = s.america$family,
             color = mycol,
             legend = F)
 ```
