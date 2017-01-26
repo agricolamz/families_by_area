@@ -1,0 +1,264 @@
+---
+title: "Families by Area"
+output: flexdashboard::flex_dashboard
+---
+
+Africa
+=================================
+Column {data-width=600}
+-------------------------------------
+  
+### Data from [Glottolog](http://glottolog.org/). Mapped by R package [lingtypology](https://agricolamz.github.io/lingtypology/). Created by G. Moroz
+  
+```{r, echo=FALSE}
+library(lingtypology); library(tidyverse)
+africa <- glottolog.modified[glottolog.modified$macro_area == "Africa",]
+africa$family <- sapply(africa$affiliation, function(x){
+  unlist(strsplit(x, ", "))[1]})
+africa <- africa[africa$family != "Spurious",]
+africa <- africa[africa$family != "Unattested",]
+africa <- africa[!is.na(africa$languoid),]
+africa[is.na(africa$family),8] <- "Unclassifiable"
+isolates <- table(africa$family)
+isolates <- names(isolates[table(africa$family) < 2])
+africa[africa$family %in% isolates,]$family <- "Isolate"
+
+set.seed(42)
+mycol <- substr(sample(rainbow(length(unique(africa$family)))), 1, 7)
+map.feature(languages = africa$languoid,
+            features = africa$family,
+            color = mycol,
+            legend = F)
+```
+
+
+Column {data-width=400}
+-------------------------------------
+  
+### Legend
+  
+```{r, echo = F}
+legend <- data.frame(family = unique(africa$family))
+library(DT)
+datatable(legend, rownames = FALSE) %>% 
+  formatStyle(
+    'family',
+    backgroundColor = styleEqual(unique(africa$family), mycol))
+```
+
+
+Australia
+=================================
+Column {data-width=600}
+-------------------------------------
+  
+### Data from [Glottolog](http://glottolog.org/). Mapped by R package [lingtypology](https://agricolamz.github.io/lingtypology/). Created by G. Moroz
+  
+```{r, echo=FALSE}
+library(lingtypology); library(tidyverse)
+australia <- glottolog.modified[glottolog.modified$macro_area == "Australia",]
+australia$family <- sapply(australia$affiliation, function(x){
+  unlist(strsplit(x, ", "))[1]})
+australia <- australia[australia$family != "Spurious",]
+australia <- australia[australia$family != "Unattested",]
+australia <- australia[!is.na(australia$languoid),]
+australia[is.na(australia$family),8] <- "Unclassifiable"
+isolates <- table(australia$family)
+isolates <- names(isolates[table(australia$family) < 2])
+australia[australia$family %in% isolates,]$family <- "Isolate"
+
+set.seed(42)
+mycol <- substr(sample(rainbow(length(unique(australia$family)))), 1, 7)
+map.feature(languages = australia$languoid,
+            features = australia$family,
+            color = mycol,
+            legend = T)
+```
+
+Column {data-width=400}
+-------------------------------------
+  
+### Legend
+  
+```{r, echo = F}
+legend <- data.frame(family = unique(australia$family))
+library(DT)
+datatable(legend, rownames = FALSE) %>% 
+  formatStyle(
+    'family',
+    backgroundColor = styleEqual(unique(australia$family), mycol))
+```
+
+Eurasia
+=================================
+Column {data-width=600}
+-------------------------------------
+  
+### Data from [Glottolog](http://glottolog.org/). Mapped by R package [lingtypology](https://agricolamz.github.io/lingtypology/). Created by G. Moroz
+  
+```{r, echo=FALSE}
+library(lingtypology); library(tidyverse)
+eurasia <- glottolog.modified[glottolog.modified$macro_area == "Eurasia",]
+eurasia$family <- sapply(eurasia$affiliation, function(x){
+  unlist(strsplit(x, ", "))[1]})
+eurasia <- eurasia[eurasia$family != "Spurious",]
+eurasia <- eurasia[eurasia$family != "Unattested",]
+eurasia <- eurasia[!is.na(eurasia$languoid),]
+eurasia[is.na(eurasia$family),8] <- "Unclassifiable"
+isolates <- table(eurasia$family)
+isolates <- names(isolates[table(eurasia$family) < 2])
+eurasia[eurasia$family %in% isolates,]$family <- "Isolate"
+
+set.seed(42)
+mycol <- substr(sample(rainbow(length(unique(eurasia$family)))), 1, 7)
+map.feature(languages = eurasia$languoid,
+            features = eurasia$family,
+            color = mycol,
+            legend = F)
+```
+
+Column {data-width=400}
+-------------------------------------
+  
+### Legend
+  
+```{r, echo = F}
+legend <- data.frame(family = unique(eurasia$family))
+library(DT)
+datatable(legend, rownames = FALSE) #%>% 
+#  formatStyle(
+#    'family',
+#    backgroundColor = styleEqual(unique(eurasia$family), mycol))
+```
+
+North America
+=================================
+Column {data-width=600}
+-------------------------------------
+  
+### Data from [Glottolog](http://glottolog.org/). Mapped by R package [lingtypology](https://agricolamz.github.io/lingtypology/). Created by G. Moroz
+  
+```{r, echo=FALSE}
+library(lingtypology); library(tidyverse)
+n.america <- glottolog.modified[glottolog.modified$macro_area == "North America",]
+n.america$family <- sapply(n.america$affiliation, function(x){
+  unlist(strsplit(x, ", "))[1]})
+n.america <- n.america[n.america$family != "Spurious",]
+n.america <- n.america[n.america$family != "Unattested",]
+n.america <- n.america[!is.na(n.america$languoid),]
+n.america[is.na(n.america$family),8] <- "Unclassifiable"
+isolates <- table(n.america$family)
+isolates <- names(isolates[table(n.america$family) < 2])
+n.america[n.america$family %in% isolates,]$family <- "Isolate"
+
+set.seed(42)
+mycol <- substr(sample(rainbow(length(unique(n.america$family)))), 1, 7)
+map.feature(languages = n.america$languoid,
+            features = n.america$family,
+            color = mycol,
+            legend = F)
+```
+
+
+Column {data-width=400}
+-------------------------------------
+  
+### Legend
+  
+```{r, echo = F}
+legend <- data.frame(family = unique(n.america$family))
+library(DT)
+datatable(legend, rownames = FALSE) %>% 
+  formatStyle(
+    'family',
+    backgroundColor = styleEqual(unique(n.america$family), mycol))
+```
+
+Papua
+=================================
+  Column {data-width=600}
+-------------------------------------
+  
+### Data from [Glottolog](http://glottolog.org/). Mapped by R package [lingtypology](https://agricolamz.github.io/lingtypology/). Created by G. Moroz
+  
+```{r, echo=FALSE}
+library(lingtypology); library(tidyverse)
+papua <- glottolog.modified[glottolog.modified$macro_area == "Papua",]
+papua$family <- sapply(papua$affiliation, function(x){
+  unlist(strsplit(x, ", "))[1]})
+papua <- papua[papua$family != "Spurious",]
+papua <- papua[papua$family != "Unattested",]
+papua <- papua[!is.na(papua$languoid),]
+papua[is.na(papua$family),8] <- "Unclassifiable"
+isolates <- table(papua$family)
+isolates <- names(isolates[table(papua$family) < 2])
+papua[papua$family %in% isolates,]$family <- "Isolate"
+papua[papua$family == "'''Austronesian",]$family <- "Austronesian"
+
+set.seed(42)
+mycol <- substr(sample(rainbow(length(unique(papua$family)))), 1, 7)
+map.feature(languages = papua$languoid,
+            features = papua$family,
+            color = mycol,
+            legend = F)
+```
+
+Column {data-width=400}
+-------------------------------------
+  
+### Legend
+  
+```{r, echo = F}
+legend <- data.frame(family = unique(papua$family))
+library(DT)
+datatable(legend, rownames = FALSE)
+# %>% 
+#  formatStyle(
+#    'family',
+#    backgroundColor = styleEqual(unique(papua$family), mycol))
+```
+
+
+South America
+=================================
+
+Column {data-width=600}
+-------------------------------------
+
+### Data from [Glottolog](http://glottolog.org/). Mapped by R package [lingtypology](https://agricolamz.github.io/lingtypology/). Created by G. Moroz
+
+```{r, echo=FALSE}
+library(lingtypology); library(tidyverse)
+s.america <- glottolog.modified[glottolog.modified$macro_area == "South America",]
+s.america$family <- sapply(s.america$affiliation, function(x){
+  unlist(strsplit(x, ", "))[1]})
+s.america <- s.america[s.america$family != "Spurious",]
+s.america <- s.america[s.america$family != "Unattested",]
+s.america <- s.america[!is.na(s.america$languoid),]
+s.america[is.na(s.america$family),8] <- "Unclassifiable"
+isolates <- table(s.america$family)
+isolates <- names(isolates[table(s.america$family) < 2])
+s.america[s.america$family %in% isolates,]$family <- "Isolate"
+
+set.seed(42)
+mycol <- substr(sample(rainbow(length(unique(s.america$family)))), 1, 7)
+map.feature(languages = s.america$languoid,
+            features = s.america$family,
+            color = mycol,
+            legend = F)
+```
+
+
+Column {data-width=400}
+-------------------------------------
+  
+### Legend
+  
+```{r, echo = F}
+legend <- data.frame(family = unique(s.america$family))
+library(DT)
+datatable(legend, rownames = FALSE) %>% 
+  formatStyle(
+    'family',
+    backgroundColor = styleEqual(unique(s.america$family), mycol))
+```
